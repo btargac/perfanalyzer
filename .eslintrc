@@ -5,6 +5,9 @@
     "browser": true,
     "jest": true
   },
+  "globals": {
+    "__API_ADDRESS__": true
+  },
   "rules": {
     "no-console": [
       "warn",

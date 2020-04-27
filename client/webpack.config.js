@@ -3,7 +3,8 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const CompressionPlugin = require('compression-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
-const pkg = require('../package.json');
+const webpack = require('webpack');
+const pkg = require('./package.json');
 
 const reScript = /\.m?js$/;
 const isDebug = !process.argv.includes('--release');
@@ -62,6 +63,11 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin(),
+    new webpack.DefinePlugin({
+      __API_ADDRESS__: isDebug
+        ? JSON.stringify('http://localhost:3001/metrics')
+        : JSON.stringify('http://perfanalyzer.herokuapp.com/metrics'),
+    }),
     ...(isDebug
       ? []
       : [
