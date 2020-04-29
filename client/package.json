@@ -4,7 +4,7 @@
   "description": "client side performance metrics tracker utility library",
   "main": "index.js",
   "browserslist": [
-    ">1% and last 4 versions and not ie >= 11"
+    ">1% and last 4 versions and not ie >= 11 and not edge >= 12"
   ],
   "scripts": {
     "build": "webpack --release",
@@ -36,7 +36,6 @@
     "webpack-cli": "^3.3.11"
   },
   "dependencies": {
-    "@fastly/performance-observer-polyfill": "^1.1.1",
-    "whatwg-fetch": "^3.0.0"
+    "@fastly/performance-observer-polyfill": "^1.1.1"
   }
 }

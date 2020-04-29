@@ -1,5 +1,14 @@
+const initialData = {
+  networkTimings: {
+    css: [],
+    font: [],
+    img: [],
+    script: [],
+  },
+};
+
 class Storage {
-  data = {};
+  data = { ...initialData };
 
   get = () => this.data;
 

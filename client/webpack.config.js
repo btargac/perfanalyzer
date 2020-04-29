@@ -40,9 +40,7 @@ module.exports = {
             [
               '@babel/preset-env',
               {
-                targets: {
-                  browsers: pkg.browserslist,
-                },
+                targets: pkg.browserslist,
                 forceAllTransforms: !isDebug, // for UglifyJS
                 modules: false,
                 useBuiltIns: false,

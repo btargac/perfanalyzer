@@ -1,10 +1,10 @@
 import { storage } from './storage';
 
-const _sendWithFetch = data => {
-  fetch(__API_ADDRESS__, {
-    method: 'POST',
-    body: data,
-  });
+const _sendWithXHR = data => {
+  const xhr = new XMLHttpRequest();
+
+  xhr.open('POST', __API_ADDRESS__, true);
+  xhr.send(data);
 };
 
 class Communicator {
@@ -13,7 +13,7 @@ class Communicator {
   initListener = () => {
     addEventListener(
       'visibilitychange',
-      function fn() {
+      function visibilityHandler() {
         if (document.visibilityState === 'hidden') {
           const perfData = new FormData();
 
@@ -22,14 +22,14 @@ class Communicator {
           // Check for sendBeacon support:
           if ('sendBeacon' in navigator) {
             if (!navigator.sendBeacon(__API_ADDRESS__, perfData)) {
-              // sendBeacon failed! Use fetch instead
-              _sendWithFetch(perfData);
+              // sendBeacon failed! Use XHR instead
+              _sendWithXHR(perfData);
             }
           } else {
-            // sendBeacon not available! Use fetch instead
-            _sendWithFetch(perfData);
+            // sendBeacon not available! Use XHR instead
+            _sendWithXHR(perfData);
           }
-          removeEventListener('visibilitychange', fn, true);
+          removeEventListener('visibilitychange', visibilityHandler, true);
         }
       },
       true
