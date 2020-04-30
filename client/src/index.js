@@ -121,7 +121,12 @@ if (supportsResource) {
     }
   });
 
-  resourceObserver.observe({ type: 'resource', buffered: true });
+  try {
+    resourceObserver.observe({ type: 'resource', buffered: true });
+  } catch {
+    // safari wants entryTypes array
+    resourceObserver.observe({ entryTypes: ['resource'], buffered: true });
+  }
 }
 
 // create an eventListener and send the data when it's the right time to send metrics

@@ -1,10 +1,8 @@
 const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
-const CompressionPlugin = require('compression-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const webpack = require('webpack');
-const pkg = require('./package.json');
 
 const reScript = /\.m?js$/;
 const isDebug = !process.argv.includes('--release');
@@ -12,10 +10,10 @@ const isAnalyze =
   process.argv.includes('--analyze') || process.argv.includes('--analyse');
 
 module.exports = {
-  name: 'perfanalyzer-webpack-config',
-  target: 'web',
+  name: 'perfanalyzer-api-webpack-config',
+  target: 'node',
   entry: {
-    perfanalyzer: ['./src/polyfill/index.js', './src/index.js'],
+    server: './src/index.js',
   },
   module: {
     rules: [
@@ -41,7 +39,9 @@ module.exports = {
             [
               '@babel/preset-env',
               {
-                targets: pkg.browserslist,
+                targets: {
+                  node: 'current',
+                },
                 forceAllTransforms: !isDebug, // for UglifyJS
                 modules: false,
                 useBuiltIns: false,
@@ -70,11 +70,6 @@ module.exports = {
     ...(isDebug
       ? []
       : [
-          // Enable compression for release
-          new CompressionPlugin({
-            algorithm: 'brotliCompress',
-            test: /\.js$/,
-          }),
           // Webpack Bundle Analyzer
           ...(isAnalyze ? [new BundleAnalyzerPlugin()] : []),
         ]),
@@ -98,7 +93,7 @@ module.exports = {
     ],
   },
   output: {
-    filename: isDebug ? '[name].js' : '[name].[chunkhash:8].js',
+    filename: isDebug ? '[name].js' : '[name].min.js',
     path: path.resolve(__dirname, 'dist'),
   },
 };

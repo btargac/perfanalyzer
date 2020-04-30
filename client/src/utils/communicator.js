@@ -15,19 +15,17 @@ class Communicator {
       'visibilitychange',
       function visibilityHandler() {
         if (document.visibilityState === 'hidden') {
-          const perfData = new FormData();
-
-          perfData.append('entries', JSON.stringify(storage.get()));
+          const stringifiedData = JSON.stringify(storage.get());
 
           // Check for sendBeacon support:
           if ('sendBeacon' in navigator) {
-            if (!navigator.sendBeacon(__API_ADDRESS__, perfData)) {
+            if (!navigator.sendBeacon(__API_ADDRESS__, stringifiedData)) {
               // sendBeacon failed! Use XHR instead
-              _sendWithXHR(perfData);
+              _sendWithXHR(stringifiedData);
             }
           } else {
             // sendBeacon not available! Use XHR instead
-            _sendWithXHR(perfData);
+            _sendWithXHR(stringifiedData);
           }
           removeEventListener('visibilitychange', visibilityHandler, true);
         }
