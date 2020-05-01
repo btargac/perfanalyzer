@@ -1,0 +1,8 @@
+{
+  "env": {
+    "browser": true
+  },
+  "globals": {
+    "__API_ADDRESS__": true
+  }
+}

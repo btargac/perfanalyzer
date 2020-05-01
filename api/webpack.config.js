@@ -2,7 +2,6 @@ const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const TerserPlugin = require('terser-webpack-plugin');
-const webpack = require('webpack');
 
 const reScript = /\.m?js$/;
 const isDebug = !process.argv.includes('--release');
@@ -24,7 +23,7 @@ module.exports = {
         loader: 'eslint-loader',
         options: {
           cache: true,
-          configFile: path.join(__dirname, '../.eslintrc'),
+          configFile: path.join(__dirname, './.eslintrc.json'),
         },
       },
       {
@@ -39,13 +38,14 @@ module.exports = {
             [
               '@babel/preset-env',
               {
+                ignoreBrowserslistConfig: true,
                 targets: {
                   node: 'current',
                 },
-                forceAllTransforms: !isDebug, // for UglifyJS
                 modules: false,
                 useBuiltIns: false,
                 debug: false,
+                shippedProposals: true,
               },
             ],
           ],
@@ -62,11 +62,6 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin(),
-    new webpack.DefinePlugin({
-      __API_ADDRESS__: isDebug
-        ? JSON.stringify('http://localhost:3001/metrics')
-        : JSON.stringify('http://perfanalyzer.herokuapp.com/metrics'),
-    }),
     ...(isDebug
       ? []
       : [
