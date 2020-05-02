@@ -1,0 +1,17 @@
+.metrics {
+  min-height: 90vh;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+}
+
+.chart-holder {
+  height: 400px;
+  width: 40vw;
+}
+
+.chart-title {
+  font-style: italic;
+  color: $grey1;
+  font-weight: bold;
+}

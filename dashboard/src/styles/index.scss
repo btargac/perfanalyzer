@@ -1,0 +1,35 @@
+// Base
+@import '~@csstools/normalize.css';
+@import './utility/_variables.scss';
+@import './utility/_mixins.scss';
+
+@import './components/_home.scss';
+@import './components/_metrics.scss';
+
+body {
+  margin: 0;
+  font-family: 'Inter', 'Segoe UI', 'Roboto', 'Oxygen', -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// Application layout
+
+.app__logo {
+  height: 120px;
+  pointer-events: none;
+}
+
+.app__header {
+  min-height: 10vh;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  font-size: $base-font-size;
+  padding: 10px 20px;
+}
+
+.app__motto {
+  color: $grey1;
+  margin-left: 20px;
+}

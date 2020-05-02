@@ -1,0 +1,56 @@
+.landing {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+}
+
+.landing-icon {
+  max-height: 500px;
+  max-width: 60%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .landing-icon {
+    animation: float-animation infinite 3s ease-in-out;
+  }
+}
+
+.cta-button {
+  appearance: none;
+  font-size: 32px;
+  outline: none;
+  border: 2px solid transparent;
+  color: rgb(112, 76, 182);
+  cursor: pointer;
+  background-color: rgba(112, 76, 182, 0.1);
+  border-radius: $border-radius;
+  padding: 10px 20px;
+  margin-top: 50px;
+  transition: all 0.15s;
+  text-decoration: none;
+
+  &:hover,
+  &:focus {
+    border: 2px solid rgba(112, 76, 182, 0.4);
+  }
+
+  &:active {
+    background-color: rgba(112, 76, 182, 0.2);
+  }
+
+  @include screen('mobile') {
+    font-size: inherit;
+  }
+}
+
+@keyframes float-animation {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
