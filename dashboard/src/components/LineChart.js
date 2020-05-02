@@ -1,63 +1,6 @@
 import React from 'react';
 import { ResponsiveLine } from '@nivo/line';
 
-const data = [
-  {
-    id: 'japan',
-    color: 'hsl(103, 70%, 50%)',
-    data: [
-      {
-        x: 'plane',
-        y: 240,
-      },
-      {
-        x: 'helicopter',
-        y: 140,
-      },
-      {
-        x: 'boat',
-        y: 98,
-      },
-      {
-        x: 'train',
-        y: 148,
-      },
-      {
-        x: 'subway',
-        y: 224,
-      },
-      {
-        x: 'bus',
-        y: 21,
-      },
-      {
-        x: 'car',
-        y: 32,
-      },
-      {
-        x: 'moto',
-        y: 164,
-      },
-      {
-        x: 'bicycle',
-        y: 253,
-      },
-      {
-        x: 'horse',
-        y: 94,
-      },
-      {
-        x: 'skateboard',
-        y: 172,
-      },
-      {
-        x: 'others',
-        y: 77,
-      },
-    ],
-  },
-];
-
 export const LineChart = ({ data }) => (
   <ResponsiveLine
     data={data}
