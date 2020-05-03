@@ -12,10 +12,12 @@ import {
   fetchMetrics,
   fetchMetricsByDate,
   selectMetrics,
+  selectLoading,
 } from '../store/slices/metricsSlice';
 
 export default function Metrics() {
   const metrics = useSelector(selectMetrics);
+  const loading = useSelector(selectLoading);
   const dispatch = useDispatch();
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
@@ -179,13 +181,13 @@ export default function Metrics() {
             <BarChart data={networkTimingsData} color={'hsl(1,82%,39%)'} />
           </div>
         </>
-      ) : (
+      ) : loading === 'idle' ? (
         <div className="empty-metrics">
           <h3>Oops no data found</h3>
           <EmptyImage className="empty-image" />
           <span>Try selecting a different date range</span>
         </div>
-      )}
+      ) : null}
     </div>
   );
 }

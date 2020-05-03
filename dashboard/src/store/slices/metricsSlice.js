@@ -62,5 +62,6 @@ export const metricsSlice = createSlice({
 
 const { reducer } = metricsSlice;
 export const selectMetrics = state => state.metrics.data;
+export const selectLoading = state => state.metrics.loading;
 
 export default reducer;
