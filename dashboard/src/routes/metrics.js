@@ -19,6 +19,7 @@ export default function Metrics() {
   const dispatch = useDispatch();
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
+  const [isDateSelected, setIsDateSelected] = useState(false);
 
   const fetchHandler = () => {
     dispatch(
@@ -32,9 +33,16 @@ export default function Metrics() {
   };
 
   useEffect(() => {
-    fetchHandler();
+    dispatch(fetchMetrics());
     // eslint-disable-next-line
-  }, [startDate, endDate]);
+  }, []);
+
+  useEffect(() => {
+    if (isDateSelected) {
+      fetchHandler();
+    }
+    // eslint-disable-next-line
+  }, [startDate, endDate, isDateSelected]);
 
   // get data for specific charts
   const ttfbData = [
@@ -113,7 +121,10 @@ export default function Metrics() {
     <div className="metrics">
       <div className="metric-controls">
         <Link className="navigation-button" to="/">
-          <span role="img">🏠</span>Back
+          <span role="img" aria-label="Home">
+            🏠
+          </span>
+          Back
         </Link>
         <div className="date-picker">
           <div className="date-picker__title">Start Date</div>
@@ -121,6 +132,7 @@ export default function Metrics() {
             {...commonDatePickerProps}
             selected={startDate}
             onChange={date => setStartDate(date)}
+            onSelect={setIsDateSelected}
             selectsStart
             startDate={startDate}
             endDate={endDate}
@@ -134,6 +146,7 @@ export default function Metrics() {
             {...commonDatePickerProps}
             selected={endDate}
             onChange={date => setEndDate(date)}
+            onSelect={setIsDateSelected}
             selectsEnd
             startDate={startDate}
             endDate={endDate}
