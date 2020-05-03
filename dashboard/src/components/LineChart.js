@@ -1,12 +1,15 @@
 import React from 'react';
 import { ResponsiveLine } from '@nivo/line';
 
-export const LineChart = ({ data }) => (
+export const LineChart = ({ data, color }) => (
   <ResponsiveLine
     data={data}
-    margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
-    xScale={{ format: '%Y-%m-%dT%H:%M:%S.%L%Z', type: 'time' }}
-    xFormat="time:%Y-%m-%dT%H:%M:%S.%L%Z"
+    margin={{ top: 50, right: 100, bottom: 80, left: 60 }}
+    xScale={{
+      format: '%Y-%m-%dT%H:%M:%S.%LZ',
+      type: 'time',
+    }}
+    xFormat="time:%Y-%m-%dT%H:%M:%S.%LZ"
     yScale={{
       type: 'linear',
       min: 'auto',
@@ -20,9 +23,10 @@ export const LineChart = ({ data }) => (
       orient: 'bottom',
       tickSize: 5,
       tickPadding: 5,
-      tickRotation: 0,
+      tickRotation: -30,
+      format: '%Y/%m/%d %H:%M:%S',
       legend: 'date',
-      legendOffset: 36,
+      legendOffset: 75,
       legendPosition: 'middle',
     }}
     axisLeft={{
@@ -31,11 +35,12 @@ export const LineChart = ({ data }) => (
       tickPadding: 5,
       tickRotation: 0,
       legend: 'ms',
-      legendOffset: -40,
+      legendOffset: -50,
       legendPosition: 'middle',
     }}
-    colors={{ scheme: 'blue_purple' }}
+    colors={color}
     curve="natural"
+    enablePointLabel={true}
     pointSize={10}
     pointColor={{ theme: 'background' }}
     pointBorderWidth={2}
@@ -45,7 +50,7 @@ export const LineChart = ({ data }) => (
     useMesh={true}
     legends={[
       {
-        anchor: 'bottom-right',
+        anchor: 'top-right',
         direction: 'column',
         justify: false,
         translateX: 100,

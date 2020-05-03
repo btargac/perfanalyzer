@@ -3,11 +3,14 @@
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
+  padding: 20px;
 }
 
 .chart-holder {
   height: 400px;
   width: 40vw;
+  flex: 1 1 500px;
+  margin: 0 0 40px 0;
 }
 
 .chart-title {
