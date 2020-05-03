@@ -22,7 +22,12 @@ export default function Metrics() {
 
   const fetchHandler = () => {
     dispatch(
-      startDate ? fetchMetricsByDate({ startDate: Date.now() }) : fetchMetrics()
+      startDate
+        ? fetchMetricsByDate({
+            startDate: startDate.getTime(),
+            endDate: endDate.getTime(),
+          })
+        : fetchMetrics()
     );
   };
 
