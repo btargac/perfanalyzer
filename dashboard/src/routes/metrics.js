@@ -15,11 +15,15 @@ import {
   selectLoading,
 } from '../store/slices/metricsSlice';
 
+const _30MinutesToMillisecs = 30 * 60 * 1000;
+
 export default function Metrics() {
   const metrics = useSelector(selectMetrics);
   const loading = useSelector(selectLoading);
   const dispatch = useDispatch();
-  const [startDate, setStartDate] = useState(new Date());
+  const [startDate, setStartDate] = useState(
+    new Date(Date.now() - _30MinutesToMillisecs)
+  );
   const [endDate, setEndDate] = useState(new Date());
   const [isDateSelected, setIsDateSelected] = useState(false);
 
@@ -32,6 +36,11 @@ export default function Metrics() {
           })
         : fetchMetrics()
     );
+  };
+
+  const dateChangeHandler = (date, type) => {
+    setIsDateSelected(true);
+    type === 'start' ? setStartDate(date) : setEndDate(date);
   };
 
   useEffect(() => {
@@ -133,8 +142,7 @@ export default function Metrics() {
           <DatePicker
             {...commonDatePickerProps}
             selected={startDate}
-            onChange={date => setStartDate(date)}
-            onSelect={setIsDateSelected}
+            onChange={date => dateChangeHandler(date, 'start')}
             selectsStart
             startDate={startDate}
             endDate={endDate}
@@ -147,8 +155,7 @@ export default function Metrics() {
           <DatePicker
             {...commonDatePickerProps}
             selected={endDate}
-            onChange={date => setEndDate(date)}
-            onSelect={setIsDateSelected}
+            onChange={date => dateChangeHandler(date, 'end')}
             selectsEnd
             startDate={startDate}
             endDate={endDate}

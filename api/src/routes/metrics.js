@@ -26,7 +26,7 @@ router.get('/', async (req, res, next) => {
   const dbQuery = {
     createdAt: {
       $gte: new Date(queryStartDate),
-      ...(endDate ? { $lt: new Date(+endDate) } : {}),
+      ...(endDate ? { $lte: new Date(+endDate) } : {}),
     },
   };
 
