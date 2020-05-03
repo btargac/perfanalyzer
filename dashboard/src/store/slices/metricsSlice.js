@@ -46,6 +46,12 @@ export const metricsSlice = createSlice({
         state.data = action.payload;
       }
     },
+    [fetchMetrics.rejected]: (state, action) => {
+      if (state.loading === 'pending') {
+        state.loading = 'idle';
+        state.data = [];
+      }
+    },
     [fetchMetricsByDate.pending]: state => {
       if (state.loading === 'idle') {
         state.loading = 'pending';
@@ -55,6 +61,12 @@ export const metricsSlice = createSlice({
       if (state.loading === 'pending') {
         state.loading = 'idle';
         state.data = action.payload;
+      }
+    },
+    [fetchMetricsByDate.rejected]: (state, action) => {
+      if (state.loading === 'pending') {
+        state.loading = 'idle';
+        state.data = [];
       }
     },
   },
