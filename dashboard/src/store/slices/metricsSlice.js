@@ -6,7 +6,7 @@ export const fetchMetricsByDate = createAsyncThunk(
   'metrics/fetchMetricsByDate',
   async ({ startDate, endDate }, thunkAPI) => {
     let url = `${metricAPIEndpoint}${
-      startDate ? '?starDate=' + startDate : ''
+      startDate ? '?startDate=' + startDate : ''
     }`;
 
     if (startDate && endDate) {

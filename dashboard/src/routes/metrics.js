@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 import { BarChart } from '../components/BarChart';
 import { LineChart } from '../components/LineChart';
+import { ReactComponent as EmptyImage } from '../images/no-data.svg';
 
 import {
   fetchMetrics,
@@ -13,19 +17,19 @@ import {
 export default function Metrics() {
   const metrics = useSelector(selectMetrics);
   const dispatch = useDispatch();
-  const [withDate, setWithDate] = useState(false);
-  // TOD: add a data picker to filter the api response
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
 
   const fetchHandler = () => {
     dispatch(
-      withDate ? fetchMetricsByDate({ startDate: Date.now() }) : fetchMetrics()
+      startDate ? fetchMetricsByDate({ startDate: Date.now() }) : fetchMetrics()
     );
   };
 
   useEffect(() => {
     fetchHandler();
     // eslint-disable-next-line
-  }, []);
+  }, [startDate, endDate]);
 
   // get data for specific charts
   const ttfbData = [
@@ -83,38 +87,87 @@ export default function Metrics() {
     ),
   }));
 
+  const commonDatePickerProps = {
+    timeIntervals: 15,
+    showTimeSelect: true,
+    dateFormat: 'MMMM d, yyyy h:mm aa',
+    popperModifiers: {
+      offset: {
+        enabled: true,
+        offset: '5px, 10px',
+      },
+      preventOverflow: {
+        enabled: true,
+        escapeWithReference: false,
+        boundariesElement: 'viewport',
+      },
+    },
+  };
+
   return (
     <div className="metrics">
-      <div className="chart-holder">
-        <div className="chart-title">Time to First Byte</div>
-        {metrics?.length ? (
-          <LineChart data={ttfbData} color={'hsl(282,70%,50%)'} />
-        ) : null}
+      <div className="metric-controls">
+        <Link className="navigation-button" to="/">
+          <span role="img">🏠</span>Back
+        </Link>
+        <div className="date-picker">
+          <div className="date-picker__title">Start Date</div>
+          <DatePicker
+            {...commonDatePickerProps}
+            selected={startDate}
+            onChange={date => setStartDate(date)}
+            selectsStart
+            startDate={startDate}
+            endDate={endDate}
+            popperPlacement="bottom-start"
+            maxDate={endDate}
+          />
+        </div>
+        <div className="date-picker">
+          <div className="date-picker__title">End Date</div>
+          <DatePicker
+            {...commonDatePickerProps}
+            selected={endDate}
+            onChange={date => setEndDate(date)}
+            selectsEnd
+            startDate={startDate}
+            endDate={endDate}
+            minDate={startDate}
+            popperPlacement="bottom-end"
+            maxDate={new Date()}
+          />
+        </div>
       </div>
-      <div className="chart-holder">
-        <div className="chart-title">First Contentful Paint</div>
-        {metrics?.length ? (
-          <LineChart data={fcpData} color={'hsl(143,62%,25%)'} />
-        ) : null}
-      </div>
-      <div className="chart-holder">
-        <div className="chart-title">Document Load</div>
-        {metrics?.length ? (
-          <LineChart data={dclData} color={'hsl(212,85%,43%)'} />
-        ) : null}
-      </div>
-      <div className="chart-holder">
-        <div className="chart-title">Window LOAD</div>
-        {metrics?.length ? (
-          <LineChart data={loadData} color={'hsl(1,82%,39%)'} />
-        ) : null}
-      </div>
-      <div className="chart-holder">
-        <div className="chart-title">Network Timings</div>
-        {metrics?.length ? (
-          <BarChart data={networkTimingsData} color={'hsl(1,82%,39%)'} />
-        ) : null}
-      </div>
+      {metrics?.length ? (
+        <>
+          <div className="chart-holder">
+            <div className="chart-title">Time to First Byte</div>
+            <LineChart data={ttfbData} color={'hsl(282,70%,50%)'} />
+          </div>
+          <div className="chart-holder">
+            <div className="chart-title">First Contentful Paint</div>
+            <LineChart data={fcpData} color={'hsl(143,62%,25%)'} />
+          </div>
+          <div className="chart-holder">
+            <div className="chart-title">Document Load</div>
+            <LineChart data={dclData} color={'hsl(212,85%,43%)'} />
+          </div>
+          <div className="chart-holder">
+            <div className="chart-title">Window LOAD</div>
+            <LineChart data={loadData} color={'hsl(1,82%,39%)'} />
+          </div>
+          <div className="chart-holder">
+            <div className="chart-title">Network Timings</div>
+            <BarChart data={networkTimingsData} color={'hsl(1,82%,39%)'} />
+          </div>
+        </>
+      ) : (
+        <div className="empty-metrics">
+          <h3>Oops no data found</h3>
+          <EmptyImage className="empty-image" />
+          <span>Try selecting a different date range</span>
+        </div>
+      )}
     </div>
   );
 }

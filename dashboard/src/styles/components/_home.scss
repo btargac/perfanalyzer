@@ -7,21 +7,17 @@
 .landing-icon {
   max-height: 500px;
   max-width: 60%;
-}
 
-@media (prefers-reduced-motion: no-preference) {
-  .landing-icon {
+  @media (prefers-reduced-motion: no-preference) {
     animation: float-animation infinite 3s ease-in-out;
   }
 }
 
 .cta-button {
-  appearance: none;
-  font-size: 32px;
+  font-size: $large-font-size;
   outline: none;
   border: 2px solid transparent;
   color: rgb(112, 76, 182);
-  cursor: pointer;
   background-color: rgba(112, 76, 182, 0.1);
   border-radius: $border-radius;
   padding: 10px 20px;
