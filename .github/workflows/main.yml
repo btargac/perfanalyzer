@@ -46,7 +46,7 @@ jobs:
         HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
       run: |
         cd ./dashboard
-        heroku container:push -a perfanalyzer-api web
+        heroku container:push -a perfanalyzer-dashboard web
 
     # Release the artifact for dashboard
     - name: Release
@@ -54,4 +54,4 @@ jobs:
         HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
       run: |
         cd ./dashboard
-        heroku container:release -a perfanalyzer-api web
+        heroku container:release -a perfanalyzer-dashboard web
