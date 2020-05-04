@@ -65,7 +65,7 @@ module.exports = {
     new webpack.DefinePlugin({
       __API_ADDRESS__: isDebug
         ? JSON.stringify('http://localhost:3001/metrics')
-        : JSON.stringify('http://perfanalyzer.herokuapp.com/metrics'),
+        : JSON.stringify('https://perfanalyzer-api.herokuapp.com/metrics'),
     }),
     ...(isDebug
       ? []

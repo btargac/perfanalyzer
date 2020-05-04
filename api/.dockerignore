@@ -4,3 +4,4 @@ node_modules
 dist
 README*.md
 npm-debug.log
+Perfanalyzer.postman_collection.json
