@@ -1,0 +1,23 @@
+version: "3"
+services:
+  api:
+    build: ./api
+    ports:
+      - "8081:3001"
+    depends_on:
+      - db
+    environment:
+      - DB_HOST=mongo-db
+    container_name: perfanalyzer-api
+
+  dashboard:
+    build: ./dashboard
+    ports:
+      - "8080:80"
+    container_name: perfanalyzer-dashboard
+
+  db:
+    image: mongo
+    ports:
+      - "27017:27017"
+    container_name: mongo-db

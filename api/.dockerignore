@@ -1,6 +1,6 @@
 .git
 .idea
 node_modules
-build
+dist
 README*.md
 npm-debug.log
