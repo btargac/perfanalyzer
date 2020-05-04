@@ -85,6 +85,11 @@ will build docker images for each package (API and Dashboard)
 `heroku container:push web --app perfanalyzer-api` <br/>
 `heroku container:release web --app perfanalyzer-api`
 
+## CI / CD
+
+Thanks to Github Actions for making our lives easier 👏
+Actions are on duty to build and deliver artifacts to Heroku Dynos
+
 If you have speed luck with you then you should see the live version on
 [🚀live version on herkou](https://perfanalyzer-dashboard.herokuapp.com/)
 
