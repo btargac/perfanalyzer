@@ -7,13 +7,19 @@ services:
     depends_on:
       - db
     environment:
-      - DB_HOST=mongo-db
+      - DB_USER
+      - DB_PASSWORD
+      - DB_HOST
+      - DB_PORT
+      - DB_NAME
+      - NODE_ENV
     container_name: perfanalyzer-api
 
   dashboard:
     build: ./dashboard
     ports:
-      - "8080:80"
+      - '80:8080'
+      - '443:8443'
     container_name: perfanalyzer-dashboard
 
   db:

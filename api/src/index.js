@@ -10,10 +10,15 @@ import { config } from './config';
 import metrics from './routes/metrics';
 
 const {
-  db: { HOST, PORT, DATABASE },
+  db: { USER, PASSWORD, HOST, PORT, DATABASE },
 } = config || {};
 
-mongoose.connect(`mongodb://${HOST}:${PORT}/${DATABASE}`, {
+const dbUrl =
+  process.env.NODE_ENV === 'production'
+    ? `mongodb://${USER}:${PASSWORD}@${HOST}:${PORT}/${DATABASE}`
+    : `mongodb://${HOST}:${PORT}/${DATABASE}`;
+
+mongoose.connect(dbUrl, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
