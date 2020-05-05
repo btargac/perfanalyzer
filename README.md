@@ -95,3 +95,6 @@ If you have speed luck with you then you should see the live version on
 
 And don't forget since the Heroku Dyno is free it will be sleeping most of the time 💤
 
+#### Demo
+<img src="demo.png" width="1080px" height="1100px" align="center" alt="Perfanalyzer Demo">
+
