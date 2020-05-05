@@ -50,7 +50,7 @@ export const BarChart = ({ data }) => (
       tickSize: 5,
       tickPadding: 5,
       tickRotation: 0,
-      legend: 'country',
+      legend: 'date',
       legendPosition: 'middle',
       legendOffset: 32,
     }}
