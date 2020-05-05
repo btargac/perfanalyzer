@@ -38,8 +38,6 @@ app.use(
 );
 // parse text/html bodies
 app.use(bodyParser.text());
-// parse application/json bodies
-app.use(bodyParser.json());
 
 // handle post data for metrics & enable cors for all domains
 app.use('/metrics', cors(), metrics);
@@ -57,9 +55,13 @@ app.use((err, req, res, next) => {
   res.end();
 });
 
-app.listen(config.port, err => {
-  if (err) {
-    console.error(`Error on app initialization ${err}`);
-  }
-  console.info(`Running at http://localhost:${config.port}/`);
-});
+if (process.env.NODE_ENV !== 'test') {
+  app.listen(config.port, err => {
+    if (err) {
+      console.error(`Error on app initialization ${err}`);
+    }
+    console.info(`Running at http://localhost:${config.port}/`);
+  });
+}
+
+export { app, db };
