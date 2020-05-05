@@ -14,7 +14,7 @@ const {
 } = config || {};
 
 const dbUrl =
-  process.env.NODE_ENV === 'production'
+  process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'test'
     ? `mongodb://${USER}:${PASSWORD}@${HOST}:${PORT}/${DATABASE}`
     : `mongodb://${HOST}:${PORT}/${DATABASE}`;
 

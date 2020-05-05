@@ -18,22 +18,35 @@ jobs:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
 
+    # Run tests for metrics endpoint
+    - name: API Tests
+      env:
+        DB_HOST: ${{ secrets.DB_HOST }}
+        DB_NAME: ${{ secrets.DB_NAME }}
+        DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+        DB_PORT: ${{ secrets.DB_PORT }}
+        DB_USER: ${{ secrets.DB_USER }}
+      run: |
+        cd ./api
+        npm install
+        npm run ci-test
+
     # Login to Heroku Containers Registry
     - name: Heroku container login
       env:
         HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
       run: heroku container:login
 
-    # Build Docker image and push for api
-    - name: Build and push
+    # Build Docker image and push for API
+    - name: Build and push API
       env:
         HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
       run: |
         cd ./api
         heroku container:push -a perfanalyzer-api web
 
-    # Release the artifact for api
-    - name: Release
+    # Release the artifact for API
+    - name: Release API
       env:
         HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
       run: |
@@ -41,7 +54,7 @@ jobs:
         heroku container:release -a perfanalyzer-api web
 
     # Build Docker image and push for dashboard
-    - name: Build and push
+    - name: Build and push dashboard
       env:
         HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
       run: |
@@ -49,7 +62,7 @@ jobs:
         heroku container:push -a perfanalyzer-dashboard web
 
     # Release the artifact for dashboard
-    - name: Release
+    - name: Release dashboard
       env:
         HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
       run: |
