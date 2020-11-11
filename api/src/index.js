@@ -10,12 +10,12 @@ import { config } from './config';
 import metrics from './routes/metrics';
 
 const {
-  db: { USER, PASSWORD, HOST, PORT, DATABASE },
+  db: { USER, PASSWORD, HOST, DATABASE },
 } = config || {};
 
 const dbUrl =
   process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'test'
-    ? `mongodb://${USER}:${PASSWORD}@${HOST}:${PORT}/${DATABASE}`
+    ? `mongodb+srv://${USER}:${PASSWORD}@${HOST}/${DATABASE}?retryWrites=true&w=majority`
     : `mongodb://${HOST}:${PORT}/${DATABASE}`;
 
 mongoose.connect(dbUrl, {
