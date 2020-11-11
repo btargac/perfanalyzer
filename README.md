@@ -1,6 +1,8 @@
 This project consists of three different packages combined in a monorepo structure; <br/>
 Api, Client and Dashboard.
 
+![CI](https://github.com/btargac/perfanalyzer/workflows/CI/badge.svg)
+
 # @perfanalyzer/api
 
 A Nodejs - Expressjs based metrics API for both collecting data from client's browsers and serving collected data
